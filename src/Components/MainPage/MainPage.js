@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import { React, useState } from 'react'
 import {MainContainer} from './styles'
 import NameForm from '../NameForm/NameForm'
 import ConfirmationForm from '../ConfirmationForm/ConfirmationForm'
@@ -22,15 +22,31 @@ const onChangeEmail = (event) => {
 }
 
 const sendData = () => {
-  //aqui deve vir uma verificação para mudar de formulario apenas se todos os requisitos tiverem sido cumpridos
+  if(age >= 18 && name.length >= 10 && name.length <= 30 && email.includes("@")) {
+    setName("")
+    setAge("")
+    setEmail("")
+    setFormFlow(2)
+  } else {
+    alert("Você não respondeu o formulário corretamente!")
+  }
   setFormFlow(2)
 }
   return (
     <MainContainer>
       <h2>Formulário de inscrição</h2>
       {formFlow === 1 ? <NameForm
+      name={name}
+      age={age}
+      email={email}
+      onChangeName={onChangeName}
+      onChangeAge={onChangeAge}
+      onChangeEmail={onChangeEmail}
+      sendData={sendData}
+      setFormFlow={setFormFlow(2)}
       // insira aqui suas props
       /> : <ConfirmationForm />}
+
     </MainContainer>
   )
 }
